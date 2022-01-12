@@ -4,6 +4,8 @@ import dev.trodrigues.dscatalogapi.domain.Category
 import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
 import dev.trodrigues.dscatalogapi.services.CategoryService
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -13,7 +15,7 @@ class CategoryServiceImpl(
     private val categoryRepository: CategoryRepository
 ) : CategoryService {
 
-    override fun findAll(): List<Category> = categoryRepository.findAll()
+    override fun findAll(pageable: Pageable): Page<Category> = categoryRepository.findAll(pageable)
 
     override fun findById(categoryId: Long): Category =
         categoryRepository.findById(categoryId)

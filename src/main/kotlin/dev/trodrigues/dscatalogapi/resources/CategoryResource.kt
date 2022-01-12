@@ -1,11 +1,16 @@
 package dev.trodrigues.dscatalogapi.resources
 
 import dev.trodrigues.dscatalogapi.extension.toModel
+import dev.trodrigues.dscatalogapi.extension.toPageResponse
 import dev.trodrigues.dscatalogapi.extension.toResponse
 import dev.trodrigues.dscatalogapi.resources.requests.PostCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
+import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.services.CategoryService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,8 +23,14 @@ class CategoryResource(
 ) {
 
     @GetMapping
-    fun getCategories(): List<CategoryResponse> {
-        return categoryService.findAll().map { it.toResponse() }
+    fun getCategories(
+        @PageableDefault(
+            page = 0,
+            size = 15,
+            sort = ["name"]
+        ) pageable: Pageable
+    ): PageResponse<CategoryResponse> {
+        return categoryService.findAll(pageable).map { it.toResponse() }.toPageResponse()
     }
 
     @GetMapping("/{id}")
