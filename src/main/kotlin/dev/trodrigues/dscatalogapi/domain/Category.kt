@@ -1,5 +1,6 @@
 package dev.trodrigues.dscatalogapi.domain
 
+import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -12,6 +13,9 @@ data class Category(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    val name: String
+    val name: String,
+
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime? = null
 
 )

@@ -5,6 +5,8 @@ import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
 import dev.trodrigues.dscatalogapi.services.CategoryService
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 @Service
 class CategoryServiceImpl(
@@ -21,8 +23,12 @@ class CategoryServiceImpl(
         categoryRepository.save(category)
 
     override fun update(category: Category): Category {
-        findById(category.id!!)
-        return categoryRepository.save(category)
+        val oldCategory = findById(category.id!!)
+        val updatedCategory = oldCategory.copy(
+            name = category.name,
+            updatedAt = LocalDateTime.now(ZoneId.of("UTC"))
+        )
+        return categoryRepository.save(updatedCategory)
     }
 
     override fun delete(categoryId: Long) {
