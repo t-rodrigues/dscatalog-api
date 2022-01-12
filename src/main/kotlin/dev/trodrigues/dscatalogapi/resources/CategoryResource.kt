@@ -3,6 +3,7 @@ package dev.trodrigues.dscatalogapi.resources
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.extension.toResponse
 import dev.trodrigues.dscatalogapi.resources.requests.PostCategoryRequest
+import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
 import dev.trodrigues.dscatalogapi.services.CategoryService
 import org.springframework.http.ResponseEntity
@@ -30,6 +31,11 @@ class CategoryResource(
         val category = categoryService.create(request.toModel())
         val location = URI("/categories/${category.id!!}")
         return ResponseEntity.created(location).body(category.toResponse())
+    }
+
+    @PutMapping("/{categoryId}")
+    fun updateCategory(@PathVariable categoryId: Long, @RequestBody request: PutCategoryRequest): CategoryResponse {
+        return categoryService.update(request.toModel(categoryId)).toResponse()
     }
 
 }

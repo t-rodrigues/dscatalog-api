@@ -20,4 +20,9 @@ class CategoryServiceImpl(
     override fun create(category: Category): Category =
         categoryRepository.save(category)
 
+    override fun update(category: Category): Category {
+        findById(category.id!!)
+        return categoryRepository.save(category)
+    }
+
 }
