@@ -6,6 +6,7 @@ import dev.trodrigues.dscatalogapi.resources.requests.PostCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
 import dev.trodrigues.dscatalogapi.services.CategoryService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
@@ -36,6 +37,12 @@ class CategoryResource(
     @PutMapping("/{categoryId}")
     fun updateCategory(@PathVariable categoryId: Long, @RequestBody request: PutCategoryRequest): CategoryResponse {
         return categoryService.update(request.toModel(categoryId)).toResponse()
+    }
+
+    @DeleteMapping("/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteCategory(@PathVariable categoryId: Long) {
+        categoryService.delete(categoryId)
     }
 
 }

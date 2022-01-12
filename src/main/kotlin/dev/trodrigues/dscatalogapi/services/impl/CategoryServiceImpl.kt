@@ -25,4 +25,9 @@ class CategoryServiceImpl(
         return categoryRepository.save(category)
     }
 
+    override fun delete(categoryId: Long) {
+        val category = findById(categoryId)
+        categoryRepository.delete(category)
+    }
+
 }

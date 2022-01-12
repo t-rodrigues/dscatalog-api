@@ -11,5 +11,7 @@ interface CategoryService {
     fun create(category: Category): Category
 
     fun update(category: Category): Category
+    
+    fun delete(categoryId: Long)
 
 }
