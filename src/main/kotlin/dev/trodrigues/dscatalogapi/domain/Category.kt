@@ -1,10 +1,8 @@
 package dev.trodrigues.dscatalogapi.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity(name = "tb_category")
 data class Category(
@@ -16,6 +14,10 @@ data class Category(
     val name: String,
 
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime? = null
+    val updatedAt: LocalDateTime? = null,
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnoreProperties("categories")
+    val products: Set<Product> = mutableSetOf()
 
 )
