@@ -14,6 +14,10 @@ class CategoryServiceImpl(
     override fun findAll(): List<Category> = categoryRepository.findAll()
 
     override fun findById(categoryId: Long): Category =
-        categoryRepository.findById(categoryId).orElseThrow { ObjectNotFoundException("Category $categoryId not found") }
+        categoryRepository.findById(categoryId)
+            .orElseThrow { ObjectNotFoundException("Category $categoryId not found") }
+
+    override fun create(category: Category): Category =
+        categoryRepository.save(category)
 
 }

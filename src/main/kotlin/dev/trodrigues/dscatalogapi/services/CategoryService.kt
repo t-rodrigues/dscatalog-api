@@ -5,7 +5,9 @@ import dev.trodrigues.dscatalogapi.domain.Category
 interface CategoryService {
 
     fun findAll(): List<Category>
-    
+
     fun findById(id: Long): Category
+
+    fun create(category: Category): Category
 
 }
