@@ -8,4 +8,6 @@ interface ProductService {
 
     fun findAll(pageable: Pageable): Page<Product>
 
+    fun findById(productId: Long): Product
+
 }

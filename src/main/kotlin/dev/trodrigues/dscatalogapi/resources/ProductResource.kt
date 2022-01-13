@@ -8,6 +8,7 @@ import dev.trodrigues.dscatalogapi.services.ProductService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -22,6 +23,11 @@ class ProductResource(
         @PageableDefault(page = 0, size = 15, sort = ["name"]) pageable: Pageable
     ): PageResponse<ProductResponse> {
         return productService.findAll(pageable).map { it.toResponse() }.toPageResponse()
+    }
+
+    @GetMapping("/{productId}")
+    fun getProductById(@PathVariable productId: Long): ProductResponse {
+       return productService.findById(productId).toResponse()
     }
 
 }

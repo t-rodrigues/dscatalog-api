@@ -11,4 +11,7 @@ interface ProductRepository : JpaRepository<Product, Long> {
 //    @Query("select p from Product p join fetch p.categories")
 //    fun findAllWithCategories(): List<Product>
 
+//    @Query("select p FROM Product p join fetch p.categories")
+//    fun findByIdWithCategories(id: Long): Product
+
 }
