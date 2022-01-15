@@ -38,4 +38,8 @@ class CategoryServiceImpl(
         categoryRepository.delete(category)
     }
 
+    override fun findAllById(ids: List<Long>): List<Category> {
+        return categoryRepository.findAllById(ids)
+    }
+
 }

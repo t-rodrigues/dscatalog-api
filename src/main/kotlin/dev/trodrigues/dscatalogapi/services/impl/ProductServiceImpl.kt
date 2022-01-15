@@ -16,8 +16,13 @@ class ProductServiceImpl(
     override fun findAll(pageable: Pageable): Page<Product> =
         productRepository.findAll(pageable)
 
-    override fun findById(productId: Long): Product =
-        productRepository.findById(productId)
+    override fun findById(productId: Long): Product {
+        return productRepository.findById(productId)
             .orElseThrow { ObjectNotFoundException("Product $productId not found") }
+    }
+
+    override fun create(product: Product): Product {
+        return productRepository.save(product)
+    }
 
 }

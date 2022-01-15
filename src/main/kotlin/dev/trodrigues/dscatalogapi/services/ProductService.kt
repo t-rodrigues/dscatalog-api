@@ -10,4 +10,6 @@ interface ProductService {
 
     fun findById(productId: Long): Product
 
+    fun create(product: Product): Product
+
 }

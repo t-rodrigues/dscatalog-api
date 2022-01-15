@@ -16,4 +16,6 @@ interface CategoryService {
 
     fun delete(categoryId: Long)
 
+    fun findAllById(ids: List<Long>): List<Category>
+
 }

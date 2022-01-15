@@ -8,6 +8,6 @@ data class ProductResponse(
     val name: String,
     val description: String,
     val price: Double,
-    val imageUrl: String,
+    val imageUrl: String? = null,
     val categories: List<CategoryResponse> = mutableListOf()
 )

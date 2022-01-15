@@ -13,16 +13,16 @@ data class Product(
     val name: String,
     val description: String,
     val price: Double,
-    val imageUrl: String,
+    val imageUrl: String? = null,
     val date: LocalDateTime,
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "tb_product_category",
         joinColumns = [JoinColumn(name = "product_id")],
         inverseJoinColumns = [JoinColumn(name = "category_id")]
     )
     @JsonIgnoreProperties("products")
-    val categories: Set<Category> = mutableSetOf()
+    val categories: List<Category> = mutableListOf()
 
 )

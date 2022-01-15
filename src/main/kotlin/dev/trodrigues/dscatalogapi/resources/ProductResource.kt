@@ -2,20 +2,20 @@ package dev.trodrigues.dscatalogapi.resources
 
 import dev.trodrigues.dscatalogapi.extension.toPageResponse
 import dev.trodrigues.dscatalogapi.extension.toResponse
+import dev.trodrigues.dscatalogapi.resources.requests.PostProductRequest
+import dev.trodrigues.dscatalogapi.resources.requests.mapper.ProductMapper
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import dev.trodrigues.dscatalogapi.services.ProductService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/products")
 class ProductResource(
-    private val productService: ProductService
+    private val productService: ProductService,
+    private val productMapper: ProductMapper
 ) {
 
     @GetMapping
@@ -28,6 +28,12 @@ class ProductResource(
     @GetMapping("/{productId}")
     fun getProductById(@PathVariable productId: Long): ProductResponse {
        return productService.findById(productId).toResponse()
+    }
+
+    @PostMapping
+    fun createProduct(@RequestBody request: PostProductRequest): ProductResponse {
+        val jkadf = productService.create(productMapper.toModel(request))
+        return jkadf.toResponse()
     }
 
 }
