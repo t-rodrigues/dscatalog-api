@@ -3,6 +3,7 @@ package dev.trodrigues.dscatalogapi.resources.exceptions
 import dev.trodrigues.dscatalogapi.enums.Errors
 import dev.trodrigues.dscatalogapi.resources.response.ErrorResponse
 import dev.trodrigues.dscatalogapi.resources.response.FieldErrorResponse
+import dev.trodrigues.dscatalogapi.services.exceptions.DomainException
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,6 +19,14 @@ class ExceptionHandlers {
         generateErrorResponse(
             status = Errors.NOT_FOUND.statusCode,
             error = Errors.NOT_FOUND.error,
+            message = ex.message
+        )
+
+    @ExceptionHandler(DomainException::class)
+    fun handleDomainException(ex: DomainException): ResponseEntity<ErrorResponse> =
+        generateErrorResponse(
+            status = Errors.BAD_REQUEST.statusCode,
+            error = Errors.BAD_REQUEST.error,
             message = ex.message
         )
 
