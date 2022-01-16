@@ -3,7 +3,6 @@ package dev.trodrigues.dscatalogapi.resources
 import dev.trodrigues.dscatalogapi.extension.toPageResponse
 import dev.trodrigues.dscatalogapi.extension.toResponse
 import dev.trodrigues.dscatalogapi.resources.requests.PostProductRequest
-import dev.trodrigues.dscatalogapi.resources.requests.mapper.ProductMapper
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import dev.trodrigues.dscatalogapi.services.ProductService
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/products")
 class ProductResource(
-    private val productService: ProductService,
-    private val productMapper: ProductMapper
+    private val productService: ProductService
 ) {
 
     @GetMapping
@@ -32,7 +30,7 @@ class ProductResource(
 
     @PostMapping
     fun createProduct(@RequestBody request: PostProductRequest): ProductResponse {
-        return productService.create(productMapper.toModel(request)).toResponse()
+        return productService.create(request).toResponse()
     }
 
 }

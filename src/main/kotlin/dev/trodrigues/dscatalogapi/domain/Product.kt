@@ -16,7 +16,7 @@ data class Product(
     val imageUrl: String? = null,
     val date: LocalDateTime,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "tb_product_category",
         joinColumns = [JoinColumn(name = "product_id")],
