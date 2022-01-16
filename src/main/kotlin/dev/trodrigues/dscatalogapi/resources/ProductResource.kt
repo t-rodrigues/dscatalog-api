@@ -27,13 +27,12 @@ class ProductResource(
 
     @GetMapping("/{productId}")
     fun getProductById(@PathVariable productId: Long): ProductResponse {
-       return productService.findById(productId).toResponse()
+        return productService.findById(productId).toResponse()
     }
 
     @PostMapping
     fun createProduct(@RequestBody request: PostProductRequest): ProductResponse {
-        val jkadf = productService.create(productMapper.toModel(request))
-        return jkadf.toResponse()
+        return productService.create(productMapper.toModel(request)).toResponse()
     }
 
 }
