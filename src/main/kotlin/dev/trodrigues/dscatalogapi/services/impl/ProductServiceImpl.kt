@@ -45,4 +45,10 @@ class ProductServiceImpl(
         return productRepository.save(updatedProduct)
     }
 
+    @Transactional
+    override fun delete(productId: Long) {
+        val product = findById(productId)
+        productRepository.delete(product)
+    }
+
 }

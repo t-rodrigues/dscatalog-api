@@ -16,4 +16,6 @@ interface ProductService {
 
     fun update(productId: Long, productRequest: ProductRequest): Product
 
+    fun delete(productId: Long)
+
 }

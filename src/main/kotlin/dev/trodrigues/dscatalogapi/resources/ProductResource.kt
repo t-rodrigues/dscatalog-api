@@ -9,6 +9,7 @@ import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import dev.trodrigues.dscatalogapi.services.ProductService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -40,6 +41,12 @@ class ProductResource(
     fun updateProduct(@PathVariable productId: Long, @RequestBody productRequest: ProductRequest): ProductResponse {
         val product = productService.update(productId, productRequest)
         return product.toResponse()
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteProduct(@PathVariable productId: Long) {
+        productService.delete(productId)
     }
 
 }
