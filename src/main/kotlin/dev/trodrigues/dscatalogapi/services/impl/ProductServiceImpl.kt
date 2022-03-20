@@ -1,5 +1,6 @@
 package dev.trodrigues.dscatalogapi.services.impl
 
+import dev.trodrigues.dscatalogapi.domain.Category
 import dev.trodrigues.dscatalogapi.domain.Product
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
@@ -29,18 +30,15 @@ class ProductServiceImpl(
 
     @Transactional
     override fun create(productRequest: ProductRequest): Product {
-        val categories = categoryRepository.findAllById(productRequest.categories.map { it.id })
-        if (categories.isEmpty()) {
-            throw DomainException("Product must have at least one valid category")
-        }
+        val categories = findCategoriesByIds(productRequest.categories.map { it.id })
         val product = productRequest.toModel(categories)
         return productRepository.save(product)
     }
 
     @Transactional
     override fun update(productId: Long, productRequest: ProductRequest): Product {
-        val oldProduct = productRepository.findById(productId).orElseThrow { DomainException("Product not found [$productId]") }
-        val categories = categoryRepository.findAllById(productRequest.categories.map { it.id })
+        val oldProduct = findById(productId)
+        val categories = findCategoriesByIds(productRequest.categories.map { it.id })
         val updatedProduct = productRequest.toModel(oldProduct, categories)
         return productRepository.save(updatedProduct)
     }
@@ -49,6 +47,14 @@ class ProductServiceImpl(
     override fun delete(productId: Long) {
         val product = findById(productId)
         productRepository.delete(product)
+    }
+
+    private fun findCategoriesByIds(ids: List<Long>): List<Category> {
+        val categories = categoryRepository.findAllById(ids)
+        if (categories.isEmpty()) {
+            throw DomainException("Product must have at least one valid category")
+        }
+        return categories
     }
 
 }
