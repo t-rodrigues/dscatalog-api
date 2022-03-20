@@ -1,7 +1,7 @@
 package dev.trodrigues.dscatalogapi.services
 
 import dev.trodrigues.dscatalogapi.domain.Product
-import dev.trodrigues.dscatalogapi.resources.requests.PostProductRequest
+import dev.trodrigues.dscatalogapi.resources.requests.ProductRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
@@ -12,6 +12,6 @@ interface ProductService {
 
     fun findById(productId: Long): Product
 
-    fun create(postProductRequest: PostProductRequest): Product
+    fun create(productRequest: ProductRequest): Product
 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class ExceptionHandlers {
+class ExceptionsHandler {
 
     @ExceptionHandler(ObjectNotFoundException::class)
     fun handleObjectNotFoundException(ex: ObjectNotFoundException): ResponseEntity<ErrorResponse> =

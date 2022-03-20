@@ -3,7 +3,7 @@ package dev.trodrigues.dscatalogapi.extension
 import dev.trodrigues.dscatalogapi.domain.Category
 import dev.trodrigues.dscatalogapi.domain.Product
 import dev.trodrigues.dscatalogapi.resources.requests.PostCategoryRequest
-import dev.trodrigues.dscatalogapi.resources.requests.PostProductRequest
+import dev.trodrigues.dscatalogapi.resources.requests.ProductRequest
 import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
@@ -33,7 +33,7 @@ fun <T> Page<T>.toPageResponse(): PageResponse<T> = PageResponse(
     totalItems = this.totalElements
 )
 
-fun PostProductRequest.toModel(categories: List<Category>): Product = Product(
+fun ProductRequest.toModel(categories: List<Category>): Product = Product(
     name = this.name,
     description = this.description,
     price = this.price,

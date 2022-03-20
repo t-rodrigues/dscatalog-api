@@ -2,15 +2,15 @@ package dev.trodrigues.dscatalogapi.resources.requests
 
 import java.time.LocalDateTime
 
-data class PostProductRequest(
+data class ProductRequest(
     val name: String,
     val description: String,
     val price: Double,
     val imageUrl: String?,
     val date: LocalDateTime?,
-    val categories: Set<PostProductCategory>
+    val categories: Set<ProductCategory>
 )
 
-data class PostProductCategory(
+data class ProductCategory(
     val id: Long
 )

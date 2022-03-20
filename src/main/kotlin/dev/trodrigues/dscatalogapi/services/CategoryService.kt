@@ -9,7 +9,7 @@ interface CategoryService {
 
     fun findAll(pageable: Pageable): Page<Category>
 
-    fun findById(id: Long): Category
+    fun findById(categoryId: Long): Category
 
     fun create(category: Category): Category
 
