@@ -23,19 +23,13 @@ class CategoryResource(
 
     @GetMapping
     fun getCategories(
-        @PageableDefault(
-            page = 0,
-            size = 15,
-            sort = ["name"]
-        ) pageable: Pageable
-    ): PageResponse<CategoryResponse> {
-        return categoryService.findAll(pageable).map { it.toResponse() }.toPageResponse()
-    }
+        @PageableDefault(page = 0, size = 15, sort = ["name"]) pageable: Pageable
+    ): PageResponse<CategoryResponse> =
+        categoryService.findAll(pageable).map { it.toResponse() }.toPageResponse()
 
     @GetMapping("/{id}")
-    fun getCategoryById(@PathVariable id: Long): CategoryResponse {
-        return categoryService.findById(id).toResponse()
-    }
+    fun getCategoryById(@PathVariable id: Long): CategoryResponse =
+        categoryService.findById(id).toResponse()
 
     @PostMapping
     fun createCategory(@RequestBody request: PostCategoryRequest): ResponseEntity<CategoryResponse> {
@@ -45,8 +39,11 @@ class CategoryResource(
     }
 
     @PutMapping("/{categoryId}")
-    fun updateCategory(@PathVariable categoryId: Long, @RequestBody request: PutCategoryRequest): CategoryResponse {
-        return categoryService.update(request.toModel(categoryId)).toResponse()
+    fun updateCategory(
+        @PathVariable categoryId: Long,
+        @RequestBody putCategoryRequest: PutCategoryRequest
+    ): CategoryResponse {
+        return categoryService.update(categoryId, putCategoryRequest).toResponse()
     }
 
     @DeleteMapping("/{categoryId}")

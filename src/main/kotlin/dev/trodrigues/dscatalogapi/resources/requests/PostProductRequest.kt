@@ -8,5 +8,9 @@ data class PostProductRequest(
     val price: Double,
     val imageUrl: String?,
     val date: LocalDateTime?,
-    val categories: Set<PostProductCategory> = HashSet()
+    val categories: Set<PostProductCategory>
+)
+
+data class PostProductCategory(
+    val id: Long
 )

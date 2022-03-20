@@ -4,10 +4,11 @@ import dev.trodrigues.dscatalogapi.domain.Product
 import dev.trodrigues.dscatalogapi.resources.requests.PostProductRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.domain.Specification
 
 interface ProductService {
 
-    fun findAll(pageable: Pageable): Page<Product>
+    fun findAll(spec: Specification<Product>, pageable: Pageable): Page<Product>
 
     fun findById(productId: Long): Product
 

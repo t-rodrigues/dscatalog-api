@@ -10,9 +10,10 @@ import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import org.springframework.data.domain.Page
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 fun Category.toResponse(): CategoryResponse = CategoryResponse(
-    id = this.id,
+    id = this.id!!,
     name = this.name
 )
 
@@ -20,9 +21,9 @@ fun PostCategoryRequest.toModel(): Category = Category(
     name = this.name
 )
 
-fun PutCategoryRequest.toModel(id: Long): Category = Category(
-    id = id,
-    name = this.name
+fun PutCategoryRequest.toModel(category: Category): Category = category.copy(
+    name = this.name,
+    updatedAt = LocalDateTime.now(ZoneId.of("UTC"))
 )
 
 fun <T> Page<T>.toPageResponse(): PageResponse<T> = PageResponse(
@@ -32,17 +33,19 @@ fun <T> Page<T>.toPageResponse(): PageResponse<T> = PageResponse(
     totalItems = this.totalElements
 )
 
-fun Product.toResponse(): ProductResponse = ProductResponse(id = this.id!!,
-    name = this.name,
-    description = this.description,
-    price = this.price,
-    imageUrl = this.imageUrl,
-    categories = this.categories.map { it.toResponse() })
-
 fun PostProductRequest.toModel(categories: List<Category>): Product = Product(
     name = this.name,
     description = this.description,
     price = this.price,
     categories = categories,
+    imageUrl = this.imageUrl,
     date = this.date ?: LocalDateTime.now()
+)
+
+fun Product.toResponse(): ProductResponse = ProductResponse(
+    id = this.id!!,
+    name = this.name,
+    description = this.description,
+    price = this.price,
+    imageUrl = this.imageUrl
 )

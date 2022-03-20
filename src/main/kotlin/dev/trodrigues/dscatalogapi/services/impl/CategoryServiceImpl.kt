@@ -1,14 +1,15 @@
 package dev.trodrigues.dscatalogapi.services.impl
 
 import dev.trodrigues.dscatalogapi.domain.Category
+import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
+import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
 import dev.trodrigues.dscatalogapi.services.CategoryService
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
-import java.time.ZoneId
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CategoryServiceImpl(
@@ -21,25 +22,21 @@ class CategoryServiceImpl(
         categoryRepository.findById(categoryId)
             .orElseThrow { ObjectNotFoundException("Category $categoryId not found") }
 
+    @Transactional
     override fun create(category: Category): Category =
         categoryRepository.save(category)
 
-    override fun update(category: Category): Category {
-        val oldCategory = findById(category.id!!)
-        val updatedCategory = oldCategory.copy(
-            name = category.name,
-            updatedAt = LocalDateTime.now(ZoneId.of("UTC"))
-        )
+    @Transactional
+    override fun update(categoryId: Long, putCategoryRequest: PutCategoryRequest): Category {
+        val oldCategory = findById(categoryId)
+        val updatedCategory = putCategoryRequest.toModel(oldCategory)
         return categoryRepository.save(updatedCategory)
     }
 
+    @Transactional
     override fun delete(categoryId: Long) {
         val category = findById(categoryId)
         categoryRepository.delete(category)
-    }
-
-    override fun findAllById(ids: List<Long>): List<Category> {
-        return categoryRepository.findAllById(ids)
     }
 
 }
