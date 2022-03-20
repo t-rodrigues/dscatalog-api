@@ -56,5 +56,7 @@ fun Product.toResponse(): ProductResponse = ProductResponse(
     name = this.name,
     description = this.description,
     price = this.price,
-    imageUrl = this.imageUrl
+    imageUrl = this.imageUrl,
+    date = this.date,
+    categories = this.categories.map { it.toResponse() }.toSet()
 )
