@@ -37,4 +37,12 @@ class ProductServiceImpl(
         return productRepository.save(product)
     }
 
+    @Transactional
+    override fun update(productId: Long, productRequest: ProductRequest): Product {
+        val oldProduct = productRepository.findById(productId).orElseThrow { DomainException("Product not found [$productId]") }
+        val categories = categoryRepository.findAllById(productRequest.categories.map { it.id })
+        val updatedProduct = productRequest.toModel(oldProduct, categories)
+        return productRepository.save(updatedProduct)
+    }
+
 }

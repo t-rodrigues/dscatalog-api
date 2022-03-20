@@ -39,7 +39,16 @@ fun ProductRequest.toModel(categories: List<Category>): Product = Product(
     price = this.price,
     categories = categories,
     imageUrl = this.imageUrl,
-    date = this.date ?: LocalDateTime.now()
+    date = this.date
+)
+
+fun ProductRequest.toModel(oldProduct: Product, categories: List<Category>): Product = oldProduct.copy(
+    name = this.name,
+    description = this.description,
+    price = this.price,
+    categories = categories,
+    imageUrl = this.imageUrl,
+    date = this.date
 )
 
 fun Product.toResponse(): ProductResponse = ProductResponse(

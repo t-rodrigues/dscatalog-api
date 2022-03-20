@@ -14,4 +14,6 @@ interface ProductService {
 
     fun create(productRequest: ProductRequest): Product
 
+    fun update(productId: Long, productRequest: ProductRequest): Product
+
 }

@@ -37,8 +37,9 @@ class ProductResource(
     }
 
     @PutMapping("/{productId}")
-    fun updateProduct(@RequestBody productRequest: ProductRequest) {
-
+    fun updateProduct(@PathVariable productId: Long, @RequestBody productRequest: ProductRequest): ProductResponse {
+        val product = productService.update(productId, productRequest)
+        return product.toResponse()
     }
 
 }
