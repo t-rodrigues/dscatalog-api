@@ -3,8 +3,7 @@ package dev.trodrigues.dscatalogapi.resources
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.extension.toPageResponse
 import dev.trodrigues.dscatalogapi.extension.toResponse
-import dev.trodrigues.dscatalogapi.resources.requests.PostCategoryRequest
-import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
+import dev.trodrigues.dscatalogapi.resources.requests.CategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.services.CategoryService
@@ -32,8 +31,8 @@ class CategoryResource(
         categoryService.findById(id).toResponse()
 
     @PostMapping
-    fun createCategory(@RequestBody request: PostCategoryRequest): ResponseEntity<CategoryResponse> {
-        val category = categoryService.create(request.toModel())
+    fun createCategory(@RequestBody categoryRequest: CategoryRequest): ResponseEntity<CategoryResponse> {
+        val category = categoryService.create(categoryRequest.toModel())
         val location = URI("/categories/${category.id!!}")
         return ResponseEntity.created(location).body(category.toResponse())
     }
@@ -41,9 +40,9 @@ class CategoryResource(
     @PutMapping("/{categoryId}")
     fun updateCategory(
         @PathVariable categoryId: Long,
-        @RequestBody putCategoryRequest: PutCategoryRequest
+        @RequestBody categoryRequest: CategoryRequest
     ): CategoryResponse {
-        return categoryService.update(categoryId, putCategoryRequest).toResponse()
+        return categoryService.update(categoryId, categoryRequest).toResponse()
     }
 
     @DeleteMapping("/{categoryId}")

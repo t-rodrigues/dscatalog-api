@@ -4,7 +4,7 @@ import dev.trodrigues.dscatalogapi.domain.Category
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
 import dev.trodrigues.dscatalogapi.repositories.ProductRepository
-import dev.trodrigues.dscatalogapi.resources.requests.PutCategoryRequest
+import dev.trodrigues.dscatalogapi.resources.requests.CategoryRequest
 import dev.trodrigues.dscatalogapi.services.CategoryService
 import dev.trodrigues.dscatalogapi.services.exceptions.DomainException
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
@@ -30,9 +30,9 @@ class CategoryServiceImpl(
         categoryRepository.save(category)
 
     @Transactional
-    override fun update(categoryId: Long, putCategoryRequest: PutCategoryRequest): Category {
+    override fun update(categoryId: Long, categoryRequest: CategoryRequest): Category {
         val oldCategory = findById(categoryId)
-        val updatedCategory = putCategoryRequest.toModel(oldCategory)
+        val updatedCategory = categoryRequest.toModel(oldCategory)
         return categoryRepository.save(updatedCategory)
     }
 
