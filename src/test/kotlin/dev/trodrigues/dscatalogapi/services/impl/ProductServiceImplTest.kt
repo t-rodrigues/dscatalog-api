@@ -1,8 +1,8 @@
 package dev.trodrigues.dscatalogapi.services.impl
 
-import dev.trodrigues.dscatalogapi.domain.mocks.buildCategory
-import dev.trodrigues.dscatalogapi.domain.mocks.buildProduct
-import dev.trodrigues.dscatalogapi.domain.mocks.buildProductRequest
+import dev.trodrigues.dscatalogapi.domain.helpers.buildCategory
+import dev.trodrigues.dscatalogapi.domain.helpers.buildProduct
+import dev.trodrigues.dscatalogapi.domain.helpers.buildProductRequest
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.repositories.CategoryRepository
 import dev.trodrigues.dscatalogapi.repositories.ProductRepository

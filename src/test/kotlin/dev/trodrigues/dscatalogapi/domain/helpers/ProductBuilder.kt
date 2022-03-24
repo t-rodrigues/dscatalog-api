@@ -1,4 +1,4 @@
-package dev.trodrigues.dscatalogapi.domain.mocks
+package dev.trodrigues.dscatalogapi.domain.helpers
 
 import dev.trodrigues.dscatalogapi.domain.Product
 import dev.trodrigues.dscatalogapi.resources.requests.ProductCategory
