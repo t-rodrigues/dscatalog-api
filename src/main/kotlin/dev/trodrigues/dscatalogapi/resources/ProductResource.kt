@@ -10,7 +10,9 @@ import dev.trodrigues.dscatalogapi.services.ProductService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RestController
 @RequestMapping("/products")
@@ -21,7 +23,7 @@ class ProductResource(
     @GetMapping
     fun getProducts(
         @PageableDefault(page = 0, size = 15, sort = ["price"]) pageable: Pageable,
-        @RequestParam(required = false) categoryId: Long?
+        @RequestParam(required = false) categoryId: Long? = null
     ): PageResponse<ProductResponse> {
         return productService.findAll(ProductSpecification.getProducts(categoryId), pageable).map { it.toResponse() }.toPageResponse()
     }
@@ -32,9 +34,10 @@ class ProductResource(
     }
 
     @PostMapping
-    fun createProduct(@RequestBody productRequest: ProductRequest): ProductResponse {
+    fun createProduct(@RequestBody productRequest: ProductRequest): ResponseEntity<ProductResponse> {
         val product = productService.create(productRequest)
-        return product.toResponse()
+        val location = URI("/products/${product.id}")
+        return ResponseEntity.created(location).body(product.toResponse())
     }
 
     @PutMapping("/{productId}")
