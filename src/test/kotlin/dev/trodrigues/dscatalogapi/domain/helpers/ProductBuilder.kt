@@ -1,8 +1,10 @@
 package dev.trodrigues.dscatalogapi.domain.helpers
 
 import dev.trodrigues.dscatalogapi.domain.Product
+import dev.trodrigues.dscatalogapi.extension.toResponse
 import dev.trodrigues.dscatalogapi.resources.requests.ProductCategory
 import dev.trodrigues.dscatalogapi.resources.requests.ProductRequest
+import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import java.time.LocalDateTime
 import java.util.*
 
@@ -18,7 +20,6 @@ fun buildProduct(
     description = description,
     price = price,
     categories = listOf(
-        buildCategory(id = categoryId),
         buildCategory(id = categoryId)
     )
 )
@@ -38,3 +39,7 @@ fun buildProductRequest(
     imageUrl = imageUrl,
     date = date
 )
+
+fun buildProductResponse(
+    product: Product = buildProduct()
+): ProductResponse = product.toResponse()
