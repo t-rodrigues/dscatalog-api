@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/products")
@@ -25,7 +26,8 @@ class ProductResource(
         @PageableDefault(page = 0, size = 15, sort = ["price"]) pageable: Pageable,
         @RequestParam(required = false) categoryId: Long? = null
     ): PageResponse<ProductResponse> {
-        return productService.findAll(ProductSpecification.getProducts(categoryId), pageable).map { it.toResponse() }.toPageResponse()
+        return productService.findAll(ProductSpecification.getProducts(categoryId), pageable).map { it.toResponse() }
+            .toPageResponse()
     }
 
     @GetMapping("/{productId}")
@@ -34,14 +36,17 @@ class ProductResource(
     }
 
     @PostMapping
-    fun createProduct(@RequestBody productRequest: ProductRequest): ResponseEntity<ProductResponse> {
+    fun createProduct(@RequestBody @Valid productRequest: ProductRequest): ResponseEntity<ProductResponse> {
         val product = productService.create(productRequest)
         val location = URI("/products/${product.id}")
         return ResponseEntity.created(location).body(product.toResponse())
     }
 
     @PutMapping("/{productId}")
-    fun updateProduct(@PathVariable productId: Long, @RequestBody productRequest: ProductRequest): ProductResponse {
+    fun updateProduct(
+        @PathVariable productId: Long,
+        @RequestBody @Valid productRequest: ProductRequest
+    ): ProductResponse {
         val product = productService.update(productId, productRequest)
         return product.toResponse()
     }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/categories")
@@ -31,7 +32,7 @@ class CategoryResource(
         categoryService.findById(id).toResponse()
 
     @PostMapping
-    fun createCategory(@RequestBody categoryRequest: CategoryRequest): ResponseEntity<CategoryResponse> {
+    fun createCategory(@RequestBody @Valid categoryRequest: CategoryRequest): ResponseEntity<CategoryResponse> {
         val category = categoryService.create(categoryRequest.toModel())
         val location = URI("/categories/${category.id!!}")
         return ResponseEntity.created(location).body(category.toResponse())
@@ -40,7 +41,7 @@ class CategoryResource(
     @PutMapping("/{categoryId}")
     fun updateCategory(
         @PathVariable categoryId: Long,
-        @RequestBody categoryRequest: CategoryRequest
+        @RequestBody @Valid categoryRequest: CategoryRequest
     ): CategoryResponse {
         return categoryService.update(categoryId, categoryRequest).toResponse()
     }
