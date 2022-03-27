@@ -6,6 +6,7 @@ import dev.trodrigues.dscatalogapi.domain.helpers.buildCategory
 import dev.trodrigues.dscatalogapi.domain.helpers.buildCategoryRequest
 import dev.trodrigues.dscatalogapi.extension.toModel
 import dev.trodrigues.dscatalogapi.services.CategoryService
+import dev.trodrigues.dscatalogapi.services.exceptions.DomainException
 import dev.trodrigues.dscatalogapi.services.exceptions.ObjectNotFoundException
 import io.mockk.every
 import io.mockk.just
@@ -145,6 +146,15 @@ class CategoryResourceTest {
         every { categoryService.delete(nonExistingId) } throws ObjectNotFoundException("")
 
         mockMvc.perform(delete("$BASE_URL/{categoryId}", nonExistingId)).andExpect(status().isNotFound)
+    }
+
+    @Test
+    fun `should deleteCategory returns 400 when category has product`() {
+        val dependentCategory = 10L
+
+        every { categoryService.delete(dependentCategory) } throws DomainException("")
+
+        mockMvc.perform(delete("$BASE_URL/{categoryId}", dependentCategory)).andExpect(status().isBadRequest)
     }
 
     @Test
