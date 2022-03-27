@@ -104,11 +104,11 @@ class ProductResourceTest {
         every { productService.create(any()) } returns product
 
         mockMvc.perform(
-            post("$BASE_URL/{productId}").contentType(MediaType.APPLICATION_JSON)
+            post(BASE_URL).contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(productRequest))
         )
             .andExpect(status().isCreated)
-            .andExpect(jsonPath("$.id").value(product.id))
+            .andExpect(jsonPath("$.id").exists())
     }
 
     @Test
@@ -166,7 +166,8 @@ class ProductResourceTest {
         every { productService.delete(nonExistingId) } throws ObjectNotFoundException("")
 
         mockMvc.perform(
-            delete("$BASE_URL/{productId}", nonExistingId))
+            delete("$BASE_URL/{productId}", nonExistingId)
+        )
             .andExpect(status().isNotFound)
     }
 
@@ -177,7 +178,8 @@ class ProductResourceTest {
         every { productService.delete(existingId) } just runs
 
         mockMvc.perform(
-            delete("$BASE_URL/{productId}", existingId))
+            delete("$BASE_URL/{productId}", existingId)
+        )
             .andExpect(status().isNoContent)
     }
 
