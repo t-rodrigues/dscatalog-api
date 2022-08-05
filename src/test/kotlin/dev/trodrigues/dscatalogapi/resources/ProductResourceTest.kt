@@ -36,7 +36,9 @@ class ProductResourceTest {
     @MockkBean
     private lateinit var productService: ProductService
 
-    private val BASE_URL = "/products"
+    companion object {
+        const val BASE_URL = "/products"
+    }
 
     @Test
     fun `should getProducts return an page of products`() {

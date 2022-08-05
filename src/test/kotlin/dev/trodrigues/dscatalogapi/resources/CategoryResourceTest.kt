@@ -33,7 +33,9 @@ class CategoryResourceTest {
     @MockkBean
     private lateinit var categoryService: CategoryService
 
-    private val BASE_URL = "/categories"
+    companion object {
+        const val BASE_URL = "/categories"
+    }
 
     @Test
     fun `should getCategories return an page of categories`() {
