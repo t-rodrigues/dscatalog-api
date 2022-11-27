@@ -18,6 +18,12 @@ fun CategoryRequest.toModel(): Category = Category(
     name = this.name
 )
 
+fun CategoryRequest.toModel2(): Category {
+    return Category(
+        name = this.name
+    )
+}
+
 fun CategoryRequest.toModel(oldCategory: Category): Category = oldCategory.copy(
     name = this.name
 )

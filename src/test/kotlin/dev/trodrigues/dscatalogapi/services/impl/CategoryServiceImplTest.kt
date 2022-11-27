@@ -11,7 +11,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
-import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.runs
 import io.mockk.verify
@@ -21,10 +20,11 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.*
 
-@ExtendWith(MockKExtension::class)
-class CategoryServiceImplTest {
+@ExtendWith(SpringExtension::class)
+internal class CategoryServiceImplTest {
 
     @MockK
     private lateinit var categoryRepository: CategoryRepository

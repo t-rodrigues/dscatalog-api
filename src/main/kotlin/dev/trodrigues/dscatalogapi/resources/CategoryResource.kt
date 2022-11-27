@@ -7,13 +7,13 @@ import dev.trodrigues.dscatalogapi.resources.requests.CategoryRequest
 import dev.trodrigues.dscatalogapi.resources.response.CategoryResponse
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.services.CategoryService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/categories")

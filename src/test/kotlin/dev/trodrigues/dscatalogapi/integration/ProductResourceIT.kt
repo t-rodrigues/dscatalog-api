@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductResourceIT {
+internal class ProductResourceIT {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -20,7 +20,9 @@ class ProductResourceIT {
     @Autowired
     private lateinit var objectMapper: ObjectMapper
 
-    private val BASE_URL = "/products"
+    companion object {
+        const val BASE_URL = "/products"
+    }
 
     @Test
     fun `should getProducts return a page of products with category id when id is provided`() {

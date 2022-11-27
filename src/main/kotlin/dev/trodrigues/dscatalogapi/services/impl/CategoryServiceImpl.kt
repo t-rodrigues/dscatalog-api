@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional(readOnly = true)
 class CategoryServiceImpl(
     private val categoryRepository: CategoryRepository,
     private val productRepository: ProductRepository
@@ -38,8 +39,8 @@ class CategoryServiceImpl(
 
     @Transactional
     override fun delete(categoryId: Long) {
-        val category = findById(categoryId)
-        if(productRepository.existsByCategories(category)) {
+        val category = categoryRepository.getReferenceById(categoryId)
+        if (productRepository.existsByCategories(category)) {
             throw DomainException("Category cannot be deleted, category($categoryId) has product registered")
         }
         categoryRepository.delete(category)

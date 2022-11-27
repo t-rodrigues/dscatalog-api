@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional(readOnly = true)
 class ProductServiceImpl(
     private val productRepository: ProductRepository,
     private val categoryRepository: CategoryRepository
@@ -56,5 +57,4 @@ class ProductServiceImpl(
         }
         return categories
     }
-
 }

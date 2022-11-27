@@ -1,6 +1,6 @@
 package dev.trodrigues.dscatalogapi.resources.requests
 
-import javax.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotBlank
 
 data class CategoryRequest(
     @field:NotBlank

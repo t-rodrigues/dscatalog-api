@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class DscatalogApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<DscatalogApiApplication>(*args)
+    runApplication<DscatalogApiApplication>(*args)
 }

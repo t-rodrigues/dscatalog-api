@@ -2,8 +2,8 @@ package dev.trodrigues.dscatalogapi.repositories.specifications
 
 import dev.trodrigues.dscatalogapi.domain.Category
 import dev.trodrigues.dscatalogapi.domain.Product
+import jakarta.persistence.criteria.Predicate
 import org.springframework.data.jpa.domain.Specification
-import javax.persistence.criteria.Predicate
 
 object ProductSpecification {
 

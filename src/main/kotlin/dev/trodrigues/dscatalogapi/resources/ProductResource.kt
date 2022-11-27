@@ -7,16 +7,17 @@ import dev.trodrigues.dscatalogapi.resources.requests.ProductRequest
 import dev.trodrigues.dscatalogapi.resources.response.PageResponse
 import dev.trodrigues.dscatalogapi.resources.response.ProductResponse
 import dev.trodrigues.dscatalogapi.services.ProductService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin(origins = ["*"], maxAge = 3600)
 class ProductResource(
     private val productService: ProductService
 ) {

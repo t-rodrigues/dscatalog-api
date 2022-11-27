@@ -1,9 +1,10 @@
 package dev.trodrigues.dscatalogapi.domain
 
+import jakarta.persistence.*
 import java.time.LocalDateTime
-import javax.persistence.*
 
-@Entity(name = "tb_product")
+@Entity
+@Table(name = "tb_product")
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

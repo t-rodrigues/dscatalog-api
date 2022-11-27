@@ -1,10 +1,11 @@
 package dev.trodrigues.dscatalogapi.domain
 
+import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.time.ZoneId
-import javax.persistence.*
 
-@Entity(name = "tb_category")
+@Entity
+@Table(name = "tb_category")
 data class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
